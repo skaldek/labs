@@ -1,32 +1,38 @@
 #include <iostream>
-
-using namespace std;
-
+#define N 10000
 int main() {
-    int n;
-    cin >> n;
-    int arr[n];
+    int n = 0;
+    std::cin >> n;
+    int arr[N];
+    for (int i = 0; i < n; i++) {
+        std::cin >> arr[i];
+    }
+
     bool flag = false;
     for (int i = 0; i < n; i++) {
-        arr[i] = i + 1;
-        int b = 0;
-        for (int j = i + 1; j > 0; j /= 10) {
-            b += j % 10;
+        int sum = 0, m;
+        int c = arr[i];
+        while (c > 0) {
+            m = c % 10;
+            sum = sum + m;
+            c = c / 10;
         }
-        if (b == 14) {
+        if (sum == 14) {
             flag = true;
             break;
         }
     }
-    int r_arr[n];
     if (flag) {
-        for (int i = n; i > 0; i--) {
-            r_arr[n - i] = i;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (arr[j] < arr[i]) {
+                    std::swap(arr[i], arr[j]);
+                }
+            }
         }
-    } else {
-        copy(arr, arr + n, r_arr);
     }
+
     for (int i = 0; i < n; i++) {
-        cout << r_arr[i] << endl;
+        std::cout << arr[i] << std::endl;
     }
 }

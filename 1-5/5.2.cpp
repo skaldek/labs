@@ -15,13 +15,20 @@ bool isAlphabeticOrder(std::string s) {
         }
     }
 
-    std::cout << c << std::endl;
-
     for (int i = 0; i < n; i++)
         if (c[i] != s[i])
             return false;
 
     return true;
+}
+
+bool checkContainment(std::string *arr, std::string s, int N) {
+    for (int i = 0; i < N; i++) {
+        if (arr[i] == s) {
+            return true;
+        }
+    }
+    return false;
 }
 
 int main() {
@@ -67,9 +74,11 @@ int main() {
     std::ofstream out;
     out.open("../output.txt");
     int counter = N;
+    std::string current[n];
     if (out.is_open()) {
         for (int i = 0; i < n; i++) {
-            if (isAlphabeticOrder(arr[i])) {
+            if (isAlphabeticOrder(arr[i]) && !checkContainment(current, arr[i], n)) {
+                current[i] = arr[i];
                 out << arr[i] << std::endl;
                 counter--;
                 if (counter == 0) {
